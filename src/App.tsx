@@ -22,7 +22,6 @@ class App extends React.Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <FPSDisplay />
-        <p className="App-intro">intro</p>
       </div>
     );
   }
