@@ -21,8 +21,8 @@ class FPScounter {
         
         // if 1sec has passed then
         if(FPScounter.frameTimes >= 1000) {
-            // show the results
-            console.log("FPS: ", FPScounter.frames);
+            // set the results and reset tracking vars
+            FPScounter.fps = FPScounter.frames;
             FPScounter.frames = 0;
             FPScounter.frameTimes = 0;
         }
