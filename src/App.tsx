@@ -1,17 +1,17 @@
-import * as React from 'react';
-import './App.css';
-import FPS from './components/FPS';
-import Game from './Game';
-import logo from './logo.svg';
+import * as React from "react";
+import "./App.css";
+import FPSDisplay from "./components/FPSDisplay";
+import Game from "./Game";
+import logo from "./logo.svg";
 
 class App extends React.Component {
   public game: Game;
 
   constructor(props: {}) {
-    super(props)
+    super(props);
 
-    this.game = new Game()
-    this.game.start()
+    this.game = new Game();
+    this.game.start();
   }
 
   public render() {
@@ -21,9 +21,8 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-          <FPS />
-        <p className="App-intro"> intro
-        </p>
+        <FPSDisplay />
+        <p className="App-intro">intro</p>
       </div>
     );
   }
