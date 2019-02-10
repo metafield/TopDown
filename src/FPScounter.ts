@@ -1,5 +1,8 @@
+import { observable } from 'mobx'
+
 class FPScounter {
 
+    @observable
     public static fps: number = 0;
     
     // Start counting fps
