@@ -7,7 +7,7 @@ import { observer } from 'mobx-react';
 class FPSDisplay extends React.Component {
     public render() {
         return <React.Fragment>
-        <p>{FPScounter.fps}</p>
+        <p>{FPScounter.fps}fps</p>
     </React.Fragment>
     }
 }
