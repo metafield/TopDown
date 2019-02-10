@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './App.css';
+import FPS from './components/FPS';
 import Game from './Game';
 import logo from './logo.svg';
 
@@ -20,8 +21,8 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
+          <FPS />
+        <p className="App-intro"> intro
         </p>
       </div>
     );
