@@ -5,6 +5,8 @@ import FPScounter from './FPScounter'
 
 class Game  {
     private ctx: CanvasRenderingContext2D;
+    private startX: number = 10;
+    private startY: number = 10;
 
     constructor(public canvas:any){}
 
@@ -28,9 +30,26 @@ class Game  {
     
     private async tick() {
         FPScounter.startCounter()
-        await this.sleep(15);
+        this.render()
+        await this.sleep(3)
         FPScounter.StopAndPost()
         requestAnimationFrame(() => this.tick())
+    }
+
+    private render() {
+        const ctx = this.ctx
+
+        ctx.clearRect(0,0,800,600)
+
+
+        ctx.fillStyle = 'rgb(200, 0, 0)';
+        ctx.fillRect(this.startX, this.startY, 50, 50);
+
+        ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
+        ctx.fillRect(this.startX + 20, this.startY + 20, 50, 50);
+
+        this.startX++
+        this.startY++
     }
 }
 
