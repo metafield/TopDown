@@ -3,15 +3,26 @@ import "./App.css";
 import FPSDisplay from "./components/FPSDisplay";
 import Game from "./Game";
 
+import { observable } from 'mobx';
+
 class App extends React.Component {
   public game: Game;
+
+  @observable
+  public canvas:any = React.createRef()
 
   constructor(props: {}) {
     super(props);
 
-    this.game = new Game();
+    this.game = new Game(this.canvas);
     this.game.start();
+    console.log(this.canvas.current)
   }
+
+  // public componentDidMount() {
+  //   setInterval(() => console.log(this.canvas),300)
+
+  // }
 
   public render() {
     return (
@@ -21,6 +32,7 @@ class App extends React.Component {
         </header>
         <hr/>
         <FPSDisplay />
+        <canvas id='main-canvas' ref={this.canvas} width={800} height={600} />
       </div>
     );
   }
