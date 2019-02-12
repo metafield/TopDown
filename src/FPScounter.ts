@@ -4,6 +4,7 @@ class FPScounter {
 
     @observable
     public static fps: number = 0;
+    public static delta: number = 0;
     
     // Start counting fps
     public static startCounter(): void {
@@ -15,9 +16,12 @@ class FPScounter {
     public static StopAndPost() {
         // get the current time
         FPScounter.endTime = performance.now();
-        // diff between end and start times and add it to the frame times
         
-        FPScounter.frameTimes = FPScounter.frameTimes + FPScounter.endTime - FPScounter.startTime;
+        // grab the delta here
+        FPScounter.delta = FPScounter.endTime - FPScounter.startTime;
+
+        // add delta to the frame times
+        FPScounter.frameTimes += FPScounter.delta;
         
         // count a frame
         ++FPScounter.frames;
