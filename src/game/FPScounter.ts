@@ -16,8 +16,11 @@ class FPScounter {
         // get the current time
         FPScounter.endTime = performance.now()
 
-        // grab the delta here
-        FPScounter.delta = FPScounter.endTime - FPScounter.startTime
+        // grab the delta here 1ms is min
+        const delta = FPScounter.endTime - FPScounter.startTime
+        FPScounter.delta = delta > 0 ? delta : 1
+
+
 
         // add delta to the frame times
         FPScounter.frameTimes += FPScounter.delta
