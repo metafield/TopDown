@@ -52,7 +52,7 @@ class Game {
 
         // add dt to tracked time
         this.demonAnimTracker += dt
-        const msPerAnim = 30
+        const msPerAnim = 24
         const rawFrame = Math.floor(this.demonAnimTracker / msPerAnim)
 
         let curFrame = rawFrame
