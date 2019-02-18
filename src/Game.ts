@@ -1,8 +1,4 @@
-
-import { when } from 'mobx';
-
 import FPScounter from './FPScounter'
-
 import sheetPNG from './assets/0x72_DungeonTilesetII_v1.2.png'
 
 class Game  {
@@ -11,13 +7,12 @@ class Game  {
 
     private demonAnimTracker = 0;
 
-    constructor(public canvas:any){
+    constructor(public canvas: HTMLCanvasElement){
         this.sheet.src = sheetPNG;
     }
 
     public async start() {
-        await when(() => this.canvas !== null)
-        this.ctx = this.canvas.current.getContext('2d');
+        this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
         const ctx = this.ctx
 
         ctx.fillStyle = 'rgb(200, 0, 0)';

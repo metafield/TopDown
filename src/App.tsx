@@ -1,9 +1,10 @@
 import * as React from "react";
 import "./App.css";
+
+import { observable, when } from 'mobx';
 import FPSDisplay from "./components/FPSDisplay";
 import Game from "./Game";
 
-import { observable } from 'mobx';
 
 class App extends React.Component {
   public game: Game;
@@ -13,11 +14,15 @@ class App extends React.Component {
 
   constructor(props: {}) {
     super(props);
+    
+    // wait for the canvas ref to be established and then pass it to the Game Controller
+    when(() => this.canvas.current !== null).then(() => {
+      this.game = new Game(this.canvas.current);
+      this.game.start();
+    })
 
-    this.game = new Game(this.canvas);
-    this.game.start();
-    console.log(this.canvas.current)
   }
+
 
   public render() {
     return (
