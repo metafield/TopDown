@@ -17,7 +17,6 @@ class App extends React.Component {
         // wait for the canvas ref to be established and then pass it to the Game Controller
         when(() => this.canvas.current !== null).then(() => {
             this.game = new Game(this.canvas.current)
-            this.game.start()
         })
     }
 
