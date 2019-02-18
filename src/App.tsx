@@ -19,11 +19,6 @@ class App extends React.Component {
     console.log(this.canvas.current)
   }
 
-  // public componentDidMount() {
-  //   setInterval(() => console.log(this.canvas),300)
-
-  // }
-
   public render() {
     return (
       <div className="App">
