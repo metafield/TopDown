@@ -1,4 +1,4 @@
-class Entity {
+class Actor {
     // tracks animation progress in ms. When the animation is over, reset this to 0
     private animProgressMs = 0
     private curAnimFrame = 0
@@ -50,4 +50,4 @@ class Entity {
     
 }
 
-export default Entity
+export default Actor
