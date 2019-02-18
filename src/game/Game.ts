@@ -1,5 +1,5 @@
 import FPScounter from './FPScounter'
-import sheetPNG from './assets/0x72_DungeonTilesetII_v1.2.png'
+import sheetPNG from '../assets/0x72_DungeonTilesetII_v1.2.png'
 
 class Game {
     private ctx: CanvasRenderingContext2D

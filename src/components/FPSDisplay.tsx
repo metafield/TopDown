@@ -1,5 +1,5 @@
 import * as React from 'react';
-import FPScounter from '../FPScounter';
+import FPScounter from '../game/FPScounter';
 
 import { observer } from 'mobx-react';
 

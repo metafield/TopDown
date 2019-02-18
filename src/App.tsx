@@ -3,7 +3,7 @@ import './App.css'
 
 import { observable, when } from 'mobx'
 import FPSDisplay from './components/FPSDisplay'
-import Game from './Game'
+import Game from './game/Game'
 
 class App extends React.Component {
     public game: Game
