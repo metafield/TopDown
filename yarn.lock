@@ -4925,6 +4925,11 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+keydrown@^1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/keydrown/-/keydrown-1.2.7.tgz#6d2b43929743aa0bf3b8e39264310f4b1696f3a9"
+  integrity sha512-TsaQfJNsQcmJ7Xuf7rDIr+ekKyOgZGsIBm9jPPaVxhpIRi0EqKBtQCjx1n8Dguw2TX7MPc+6iPqweL8bq5DTdA==
+
 killable@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.1.tgz#4c8ce441187a061c7474fb87ca08e2a638194892"

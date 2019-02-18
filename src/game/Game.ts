@@ -1,4 +1,5 @@
 import FPScounter from './FPScounter'
+import * as kd from 'keydrown'
 import sheetPNG from '../assets/0x72_DungeonTilesetII_v1.3.png'
 import { demon, floors } from './Atlas'
 import Actor from './Actor';
@@ -24,25 +25,23 @@ class Game {
         this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
         this.deemo = new Actor('deemo', 0, 0, demon, 'idle')
 
-        document.body.addEventListener('keydown', (e) => {
-            if (e.code === 'KeyD' ) {
-                this.deemo.curAnim = 'run';
-                this.deemo.x += 6
-            } else if(e.code === 'KeyA') {
-                this.deemo.curAnim = 'run';
-                this.deemo.x -= 6
-            }
-            console.log(e.code);
-            
-        })
-
-        document.body.addEventListener('keyup', (e) => {
-            if (e.code === 'KeyD' || e.code === 'KeyA' ) {
-                this.deemo.curAnim = 'idle';
-            }
-            console.log(e.code);
-            
-        })
+        // init input
+        kd.W.down(() => {
+            this.deemo.y -= 2
+            this.deemo.curAnim = 'run'
+        });
+        kd.A.down(() => {
+            this.deemo.x -= 2
+            this.deemo.curAnim = 'run'
+        });
+        kd.S.down(() => {
+            this.deemo.y += 2
+            this.deemo.curAnim = 'run'
+        });
+        kd.D.down(() => {
+            this.deemo.x += 2
+            this.deemo.curAnim = 'run'
+        });
 
         // generate a random background
         this.generateBackground(this.ctx)
@@ -51,6 +50,8 @@ class Game {
     }
 
     private async tick() {
+        this.deemo.curAnim = 'idle'
+        kd.tick() // update input
         this.lastime = this.time
         this.time = performance.now()
         const delta = this.time - this.lastime
