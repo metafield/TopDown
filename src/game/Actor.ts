@@ -12,11 +12,17 @@ class Actor {
         public curAnim: string
     ) {}
 
-    public draw(ctx: CanvasRenderingContext2D, sheet: HTMLImageElement, dt: number) {
+    public getAnimationState() {
+        const {curAnim, curAnimFrame, sprites} = this
+        
+        return {curAnim, curAnimFrame, sprites}
+    }
+
+    public draw(dt: number) {
         // add dt to tracked time
         this.animProgressMs += dt
         // this.timeAlive += dt
-        const msPerAnim = 60
+        const msPerAnim = 100
 
         const newAnimFrame = Math.floor(this.animProgressMs / msPerAnim)
         
@@ -34,17 +40,6 @@ class Actor {
             this.animProgressMs = 0
             return
         }
-        
-        const { x, y, w, h } = this.sprites[this.curAnim]
-        const sx = this.curAnimFrame * 32 + x
-
-        ctx.clearRect(0, 0, 800, 600)
-        ctx.save()
-        ctx.scale(-2, 2)
-        ctx.drawImage(sheet, sx, y, w, h, -200, 0, 128, 128)
-        ctx.restore()
-
-
     }
 
     
