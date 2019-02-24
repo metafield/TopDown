@@ -1,5 +1,6 @@
 import FPScounter from './FPScounter'
 import * as kd from 'keydrown'
+import input from './Input'
 import sheetPNG from '../assets/0x72_DungeonTilesetII_v1.3.png'
 import { demon, floors } from './Atlas'
 import Actor from './Actor';
@@ -25,22 +26,32 @@ class Game {
         this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
         this.deemo = new Actor('deemo', 0, 0, demon, 'idle')
 
-        // init input
+        // init input Down
         kd.W.down(() => {
-            this.deemo.y -= 2
-            this.deemo.curAnim = 'run'
+            input.vertical = -1
         });
         kd.A.down(() => {
-            this.deemo.x -= 2
-            this.deemo.curAnim = 'run'
+            input.horizontal = -1
         });
         kd.S.down(() => {
-            this.deemo.y += 2
-            this.deemo.curAnim = 'run'
+            input.vertical = 1
         });
         kd.D.down(() => {
-            this.deemo.x += 2
-            this.deemo.curAnim = 'run'
+            input.horizontal = 1
+        });
+
+        // init input Up
+        kd.W.up(() => {
+            input.vertical = 0
+        });
+        kd.A.up(() => {
+            input.horizontal = 0
+        });
+        kd.S.up(() => {
+            input.vertical = 0
+        });
+        kd.D.up(() => {
+            input.horizontal = 0
         });
 
         // generate a random background
@@ -50,7 +61,6 @@ class Game {
     }
 
     private async tick() {
-        this.deemo.curAnim = 'idle'
         kd.tick() // update input
         this.lastime = this.time
         this.time = performance.now()
@@ -58,9 +68,14 @@ class Game {
         
         FPScounter.StopAndPost()
         FPScounter.startCounter()
+        this.update(delta)
         this.render(delta, this.ctx)
         
         requestAnimationFrame(() => this.tick())
+    }
+
+    private update(delta: number) {
+        this.deemo.update(delta)
     }
 
     private render(dt: number, ctx: CanvasRenderingContext2D) {
@@ -100,7 +115,6 @@ class Game {
     }
 
     private drawActors(dt: number) {
-        this.deemo.draw(dt);
         const { curAnimFrame, curAnim, sprites } = this.deemo.getAnimationState()
         const { x, y, w, h } = sprites[curAnim]
         const sx = curAnimFrame * 32 + x
