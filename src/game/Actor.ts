@@ -1,14 +1,16 @@
 import input from './Input';
+import Game from './Game';
 
 class Actor {
     // tracks animation progress in ms. When the animation is over, reset this to 0
     private animProgressMs = 0
     private curAnimFrame = 0
     private timeAlive = 0
-    private moveSpeed = 0.2
+    private moveSpeed = 0.3
 
 
     constructor(
+        public game: Game,
         public name: string,
         public x: number,
         public y: number,
@@ -33,8 +35,13 @@ class Actor {
         const { horizontal, vertical } = input
         this.curAnim = (horizontal || vertical) ? 'run' : 'idle'
 
-        const vectorX = Math.floor(dt * this.moveSpeed * horizontal)
-        const vectorY = Math.floor(dt * this.moveSpeed * vertical)
+        const vectorX = Math.round(dt * this.moveSpeed * horizontal)
+        const vectorY = Math.round(dt * this.moveSpeed * vertical)
+
+        this.game.store.deemoSpeed.x = vectorX
+        this.game.store.deemoSpeed.y = vectorY
+        this.game.store.deemoSpeed.breakdownX = `dt: ${dt} * ${this.moveSpeed} * ${horizontal}`
+        this.game.store.deemoSpeed.breakdownY = ``
 
         this.x += vectorX
         this.y += vectorY
