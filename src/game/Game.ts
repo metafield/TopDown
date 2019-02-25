@@ -57,10 +57,35 @@ class Game {
         // generate a random background
         this.generateBackground(this.ctx)
 
+        setTimeout(() => {
+            // const gamepads = navigator.getGamepads()
+            const gp = navigator.getGamepads()[0];
+            if (gp) {
+                console.log(JSON.stringify(gp.buttons, undefined, 2));
+            }
+            
+        }, 1000);
+
         this.tick()
     }
 
     private async tick() {
+        const gp = navigator.getGamepads()[0];
+        if (gp) {
+            const deadzone = 0.1
+            const button = gp.buttons[0]
+            const rawX = gp.axes[0]
+            const rawY = gp.axes[1]
+
+            input.horizontal = Math.abs(rawX) < deadzone ? 0 : rawX
+            input.vertical = Math.abs(rawY) < deadzone ? 0 : rawY
+
+            if (button.pressed) {
+                console.log("Button pressed!");
+            } else {
+                console.log("Button not pressed");
+            }
+        }
         kd.tick() // update input
         this.lastime = this.time
         this.time = performance.now()
