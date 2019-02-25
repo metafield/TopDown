@@ -4,6 +4,7 @@ import input from './Input'
 import sheetPNG from '../assets/0x72_DungeonTilesetII_v1.3.png'
 import { demon, floors } from './Atlas'
 import Actor from './Actor';
+import Store from 'src/store/Store';
 
 class Game {
     private ctx: CanvasRenderingContext2D
@@ -17,14 +18,14 @@ class Game {
     private time: number = 0
 
 
-    constructor(public canvas: HTMLCanvasElement) {
+    constructor(public canvas: HTMLCanvasElement, public store: Store) {
         this.sheet.src = sheetPNG
         this.sheet.onload = () => this.start()        
     }
 
     private async start() {
         this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
-        this.deemo = new Actor('deemo', 0, 0, demon, 'idle')
+        this.deemo = new Actor(this, 'deemo', 0, 0, demon, 'idle')
 
         // init input Down
         kd.W.down(() => {
