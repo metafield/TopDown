@@ -4,19 +4,24 @@ import './App.css'
 import { observable, when } from 'mobx'
 import FPSDisplay from './components/FPSDisplay'
 import Game from './game/Game'
+import Store from './store/Store'
+import { observer } from 'mobx-react';
 
+@observer
 class App extends React.Component {
-    public game: Game
-
+    
     @observable
     public canvas: any = React.createRef()
+    public game: Game
+
+    private store = new Store()
 
     constructor(props: {}) {
         super(props)
 
         // wait for the canvas ref to be established and then pass it to the Game Controller
         when(() => this.canvas.current !== null).then(() => {
-            this.game = new Game(this.canvas.current)
+            this.game = new Game(this.canvas.current, this.store)
         })
     }
 
@@ -34,6 +39,9 @@ class App extends React.Component {
                     width={800}
                     height={600}
                 />
+                <p>Speed X: {this.store.deemoSpeed.x}</p>
+                <p>Speed Y: {this.store.deemoSpeed.y}</p>
+
             </div>
         )
     }
