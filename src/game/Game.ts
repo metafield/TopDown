@@ -5,6 +5,7 @@ import sheetPNG from '../assets/0x72_DungeonTilesetII_v1.3.png'
 import { demon, floors } from './Atlas'
 import Actor from './Actor';
 import Store from 'src/store/Store';
+import Rectangle from './Rectangle';
 
 class Game {
     private ctx: CanvasRenderingContext2D
@@ -18,6 +19,11 @@ class Game {
     private time: number = 0
 
 
+    private mousePos = {
+        x: 0,
+        y: 0
+    }
+
     constructor(public canvas: HTMLCanvasElement, public store: Store) {
         this.sheet.src = sheetPNG
         this.sheet.onload = () => this.start()        
@@ -26,6 +32,7 @@ class Game {
     private async start() {
         this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
         this.deemo = new Actor(this, 'deemo', 0, 0, demon, 'idle')
+        window.addEventListener('mousemove', (e) => this.handleMouseMove(e), false);
 
         // init input Down
         kd.W.down(() => {
@@ -95,7 +102,7 @@ class Game {
         FPScounter.StopAndPost()
         FPScounter.startCounter()
         this.update(delta)
-        this.render(delta, this.ctx)
+        this.render(delta, this.ctx, this.canvas)
         
         requestAnimationFrame(() => this.tick())
     }
@@ -104,15 +111,41 @@ class Game {
         this.deemo.update(delta)
     }
 
-    private render(dt: number, ctx: CanvasRenderingContext2D) {
-        // clear the canvas
-        // ctx.clearRect(0, 0, 800, 600)
-        // ctx.fillStyle = 'rgb(255, 0, 0)'
-        // ctx.fillRect(0,0,800,600)
-
-        this.drawBackground(this.ctx)
+    private render(dt: number, ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+        const { mousePos } = this
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        this.drawBackground(ctx)
         this.drawActors(dt)
+
+        const red = 'rgb(255, 0 , 0)'
+        const blue = 'rgb(0, 0 , 255)'
+        const green = 'rgb(0, 255 , 0)'
+        const weird = 'rgb(255, 255, 255)'
+
+        const mouseRect = new Rectangle(mousePos.x, mousePos.y, 100, 100, red) 
+        const rect1 = new Rectangle(10, 200, 100, 100, blue)
+        const rect2 = new Rectangle(500, 500, 100, 100, green)
+
+        const rects = [mouseRect, rect1, rect2]
+
+        rects.forEach( (rect, i) => {
+            ctx.fillStyle = rect.collidesWithRect(mouseRect) && i !== 0 ? weird : rect.colour
+            ctx.fillRect(rect.x, rect.y, rect.width, rect.height)
+        })
     }
+
+    private handleMouseMove(e: any) {
+        this.mousePos = this.getMousePos(this.canvas, e);
+    }
+    
+    private getMousePos(canvas: HTMLCanvasElement, evt: any) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+            x: (evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width,
+            y: (evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
+        };
+    }
+
 
     private generateBackground(ctx: CanvasRenderingContext2D) {
         // draw background
