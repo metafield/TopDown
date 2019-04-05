@@ -1,5 +1,7 @@
-My Attempt at making a game engine with React / Ts and Canvas.
+# Top Down
 
-Too lazy to build?
-W A S D to Move, Also supports PS4 DS!
-Current version here: http://metafield.github.io/TopDown
+A game engine with React / TS and Canvas.
+
+Too lazy to build? Then check out a [Live version](http://metafield.github.io/TopDown).
+
+W A S D to Move, Also supports PS4 DS4 Controllers (Might even support xbox One).
